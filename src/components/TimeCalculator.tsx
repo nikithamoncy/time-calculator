@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowDown, Search } from 'lucide-react';
 import { useTimeConverter, TIMEZONES } from '../hooks/useTimeConverter';
