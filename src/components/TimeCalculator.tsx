@@ -57,7 +57,7 @@ export default function TimeCalculator() {
 
   const filteredZones = TIMEZONES.filter(z => 
     z.searchString.includes(search.toLowerCase())
-  ).slice(0, 100);
+  );
 
   const handleSelect = (tzId: string, tzName: string) => {
     setTargetTimeZoneId(tzId);
