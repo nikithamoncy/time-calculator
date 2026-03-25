@@ -2,24 +2,40 @@ import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowDown, Search } from 'lucide-react';
 import { useTimeConverter, TIMEZONES } from '../hooks/useTimeConverter';
+import type { TimeComponents } from '../hooks/useTimeConverter';
+
+const DateTimePicker = ({ comps, onChange, isTarget }: { comps: TimeComponents, onChange: (c: Partial<TimeComponents>) => void, isTarget?: boolean }) => {
+  return (
+    <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap', justifyContent: isTarget ? 'center' : 'flex-start' }}>
+      <input type="date" value={comps.date} onChange={e => onChange({ date: e.target.value })} className="input-field" style={{ padding: '8px 12px', flex: '1 1 auto', minWidth: '130px' }} />
+      <div style={{ display: 'flex', gap: '4px', alignItems: 'center' }}>
+        <select value={comps.hour} onChange={e => onChange({ hour: e.target.value })} className="input-field" style={{ padding: '8px', minWidth: '60px' }}>
+          {Array.from({length: 12}, (_, i) => <option key={i+1} value={(i+1).toString()}>{i+1}</option>)}
+        </select>
+        <span style={{ fontWeight: 'bold', color: 'var(--text-secondary)' }}>:</span>
+        <select value={comps.minute} onChange={e => onChange({ minute: e.target.value })} className="input-field" style={{ padding: '8px', minWidth: '60px' }}>
+          {Array.from({length: 60}, (_, i) => <option key={i} value={i.toString().padStart(2, '0')}>{i.toString().padStart(2, '0')}</option>)}
+        </select>
+        <select value={comps.ampm} onChange={e => onChange({ ampm: e.target.value as 'AM'|'PM' })} className="input-field" style={{ padding: '8px', minWidth: '70px', fontWeight: 'bold' }}>
+          <option value="AM">AM</option>
+          <option value="PM">PM</option>
+        </select>
+      </div>
+    </div>
+  );
+};
 
 export default function TimeCalculator() {
-  const now = new Date();
-  const year = now.getFullYear();
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const day = String(now.getDate()).padStart(2, '0');
-  const hours = String(now.getHours()).padStart(2, '0');
-  const minutes = String(now.getMinutes()).padStart(2, '0');
-  const localTimeString = `${year}-${month}-${day}T${hours}:${minutes}`;
+  const [initDate] = useState(() => new Date());
 
   const {
-    indianDateTime,
-    setIndianDateTime,
     targetTimeZoneId,
     setTargetTimeZoneId,
-    convertedTime,
-    convertedDate
-  } = useTimeConverter(localTimeString, 'America/New_York');
+    indianComponents,
+    targetComponents,
+    updateIndianTime,
+    updateTargetTime
+  } = useTimeConverter(initDate, 'America/New_York');
 
   const selectedTz = TIMEZONES.find(t => t.id === targetTimeZoneId);
   const [search, setSearch] = useState(selectedTz?.name || 'New York (America)');
@@ -70,12 +86,7 @@ export default function TimeCalculator() {
 
         <div className="input-group">
           <label className="input-label">India (IST)</label>
-          <input 
-            type="datetime-local" 
-            className="input-field"
-            value={indianDateTime}
-            onChange={(e) => setIndianDateTime(e.target.value)}
-          />
+          <DateTimePicker comps={indianComponents} onChange={updateIndianTime} />
         </div>
 
         <div className="divider">
@@ -135,19 +146,22 @@ export default function TimeCalculator() {
 
         <motion.div 
           className="result-card"
-          key={targetTimeZoneId + indianDateTime}
+          key={targetTimeZoneId + (indianComponents.minute)}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4 }}
         >
-          {convertedTime ? (
+          {targetComponents ? (
             <>
-              <div className="result-time">{convertedTime}</div>
-              <div className="result-date">{convertedDate} {selectedTz?.name.split(' (')[0] === 'Dubai' ? '🇦🇪' : selectedTz?.name.split(' (')[0] === 'London' ? '🇬🇧' : selectedTz?.id.includes('America') ? '🇺🇸' : '🌍'}</div>
+              <DateTimePicker comps={targetComponents} onChange={updateTargetTime} isTarget />
+              <div className="result-date mt-3" style={{ marginTop: '16px' }}>
+                 {selectedTz?.name.split(' (')[0] === 'Dubai' ? '🇦🇪 ' : selectedTz?.name.split(' (')[0] === 'London' ? '🇬🇧 ' : selectedTz?.id.includes('America') ? '🇺🇸 ' : '🌍 '}
+                 {targetComponents.date}
+              </div>
             </>
           ) : (
             <div className="result-time" style={{ fontSize: '1.2rem', color: 'var(--text-secondary)' }}>
-              Enter a valid time
+              Select a target location
             </div>
           )}
         </motion.div>
