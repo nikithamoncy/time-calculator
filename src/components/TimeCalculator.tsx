@@ -55,9 +55,11 @@ export default function TimeCalculator() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [targetTimeZoneId]);
 
-  const filteredZones = TIMEZONES.filter(z => 
-    z.searchString.includes(search.toLowerCase())
-  );
+  const filteredZones = TIMEZONES.filter(z => {
+    if (!search.trim()) return true;
+    const searchTerms = search.toLowerCase().trim().split(/\s+/);
+    return searchTerms.every(term => z.searchString.includes(term));
+  });
 
   const handleSelect = (tzId: string, tzName: string) => {
     setTargetTimeZoneId(tzId);

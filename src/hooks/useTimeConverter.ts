@@ -134,7 +134,42 @@ const EXTRA_LOCATIONS = [
   { name: 'United Arab Emirates (Dubai)', timeZone: 'Asia/Dubai' },
   { name: 'Saudi Arabia', timeZone: 'Asia/Riyadh' },
   { name: 'Singapore', timeZone: 'Asia/Singapore' },
-  { name: 'New Zealand', timeZone: 'Pacific/Auckland' }
+  { name: 'New Zealand', timeZone: 'Pacific/Auckland' },
+  
+  // More Countries
+  { name: 'Russia (Moscow)', timeZone: 'Europe/Moscow' },
+  { name: 'Argentina (Buenos Aires)', timeZone: 'America/Argentina/Buenos_Aires' },
+  { name: 'Colombia (Bogota)', timeZone: 'America/Bogota' },
+  { name: 'Chile (Santiago)', timeZone: 'America/Santiago' },
+  { name: 'Peru (Lima)', timeZone: 'America/Lima' },
+  { name: 'Venezuela (Caracas)', timeZone: 'America/Caracas' },
+  { name: 'Egypt (Cairo)', timeZone: 'Africa/Cairo' },
+  { name: 'Nigeria (Lagos)', timeZone: 'Africa/Lagos' },
+  { name: 'Kenya (Nairobi)', timeZone: 'Africa/Nairobi' },
+  { name: 'Morocco (Casablanca)', timeZone: 'Africa/Casablanca' },
+  { name: 'Indonesia (Jakarta)', timeZone: 'Asia/Jakarta' },
+  { name: 'Philippines (Manila)', timeZone: 'Asia/Manila' },
+  { name: 'South Korea (Seoul)', timeZone: 'Asia/Seoul' },
+  { name: 'Turkey (Istanbul)', timeZone: 'Europe/Istanbul' },
+  { name: 'Thailand (Bangkok)', timeZone: 'Asia/Bangkok' },
+  { name: 'Vietnam (Ho Chi Minh)', timeZone: 'Asia/Ho_Chi_Minh' },
+  { name: 'Malaysia (Kuala Lumpur)', timeZone: 'Asia/Kuala_Lumpur' },
+  { name: 'Pakistan (Karachi)', timeZone: 'Asia/Karachi' },
+  { name: 'Bangladesh (Dhaka)', timeZone: 'Asia/Dhaka' },
+  { name: 'Iran (Tehran)', timeZone: 'Asia/Tehran' },
+  { name: 'Israel (Jerusalem)', timeZone: 'Asia/Jerusalem' },
+  { name: 'Netherlands (Amsterdam)', timeZone: 'Europe/Amsterdam' },
+  { name: 'Switzerland (Zurich)', timeZone: 'Europe/Zurich' },
+  { name: 'Sweden (Stockholm)', timeZone: 'Europe/Stockholm' },
+  { name: 'Norway (Oslo)', timeZone: 'Europe/Oslo' },
+  { name: 'Denmark (Copenhagen)', timeZone: 'Europe/Copenhagen' },
+  { name: 'Finland (Helsinki)', timeZone: 'Europe/Helsinki' },
+  { name: 'Poland (Warsaw)', timeZone: 'Europe/Warsaw' },
+  { name: 'Austria (Vienna)', timeZone: 'Europe/Vienna' },
+  { name: 'Ireland (Dublin)', timeZone: 'Europe/Dublin' },
+  { name: 'Czech Republic (Prague)', timeZone: 'Europe/Prague' },
+  { name: 'Greece (Athens)', timeZone: 'Europe/Athens' },
+  { name: 'Portugal (Lisbon)', timeZone: 'Europe/Lisbon' }
 ];
 
 const builtInZones = allZones.map(tz => {
